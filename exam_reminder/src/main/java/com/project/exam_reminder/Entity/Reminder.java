@@ -1,9 +1,18 @@
 package com.project.exam_reminder.Entity;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.util.Date;
+
+
+@AllArgsConstructor
+@Data
+@Table
 
 public class Reminder {
 
@@ -33,39 +42,54 @@ public class Reminder {
                 '}';
     }
 
-    public String getStu_id() {
-        return stu_id;
+    public String getReminder_id() {
+        return reminder_id;
     }
 
-    public void setStu_id(String stu_id) {
-        this.stu_id = stu_id;
+    public Date getDate() {
+        return date;
     }
 
-    public void setStu_name(String stu_name) {
-        this.stu_name = stu_name;
+    public Time getTime() {
+        return time;
     }
 
-    public void setStu_address(String stu_address) {
-        this.stu_address = stu_address;
+    public String getVenue() {
+        return venue;
     }
 
-    public void setStu_mobile(String stu_mobile) {
-        this.stu_mobile = stu_mobile;
+    public String getLec_id() {
+        return lec_id;
     }
 
-    public String getStu_name() {
-        return stu_name;
+    public String getExam_id() {
+        return exam_id;
     }
 
-    public String getStu_address() {
-        return stu_address;
+    public void setReminder_id(String reminder_id) {
+        this.reminder_id = reminder_id;
     }
 
-    public String getStu_mobile() {
-        return stu_mobile;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    private String stu_mobile;
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public void setLec_id(String lec_id) {
+        this.lec_id = lec_id;
+    }
+
+    public void setExam_id(String exam_id) {
+        this.exam_id = exam_id;
+    }
+
 
 
 }
