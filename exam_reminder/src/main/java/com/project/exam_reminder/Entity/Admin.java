@@ -1,20 +1,15 @@
 package com.project.exam_reminder.Entity;
 
 import jakarta.persistence.Id;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-
 @AllArgsConstructor
 @Data
-
-public class Exam {
+public class Admin {
     @Id
-    private String exam_id;
-    private String Acc_year;
-    private String sem;
-    private String level ;
-
-
+    private String ad_id;
+    private String ad_name;
+    private String ad_email;
+    private String lec_contact ;
 }
