@@ -1,16 +1,10 @@
 package com.project.exam_reminder.Entity;
-
-
-
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-
-
 
 @AllArgsConstructor
 @Data
