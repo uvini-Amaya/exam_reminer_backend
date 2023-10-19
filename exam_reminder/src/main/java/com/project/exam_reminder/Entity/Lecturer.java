@@ -14,9 +14,7 @@ import java.util.Date;
 @Data
 @Table
 public class Lecturer {
-
-
-
+    
 
         @Id
         private String lec_id;
@@ -37,35 +35,4 @@ public class Lecturer {
                     '}';
         }
 
-    public String getLec_id() {
-        return lec_id;
-    }
-
-    public void setLec_id(String lec_id) {
-        this.lec_id = lec_id;
-    }
-
-    public String getLec_name() {
-        return lec_name;
-    }
-
-    public void setLec_name(String lec_name) {
-        this.lec_name = lec_name;
-    }
-
-    public String getLec_email() {
-        return lec_email;
-    }
-
-    public void setLec_email(String lec_email) {
-        this.lec_email = lec_email;
-    }
-
-    public String getLec_contact() {
-        return lec_contact;
-    }
-
-    public void setLec_contact(String lec_contact) {
-        this.lec_contact = lec_contact;
-    }
 }

@@ -42,54 +42,6 @@ public class Reminder {
                 '}';
     }
 
-    public String getReminder_id() {
-        return reminder_id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public String getVenue() {
-        return venue;
-    }
-
-    public String getLec_id() {
-        return lec_id;
-    }
-
-    public String getExam_id() {
-        return exam_id;
-    }
-
-    public void setReminder_id(String reminder_id) {
-        this.reminder_id = reminder_id;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public void setLec_id(String lec_id) {
-        this.lec_id = lec_id;
-    }
-
-    public void setExam_id(String exam_id) {
-        this.exam_id = exam_id;
-    }
-
 
 
 }
