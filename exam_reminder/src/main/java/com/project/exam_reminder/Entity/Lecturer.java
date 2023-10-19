@@ -19,14 +19,9 @@ import lombok.Setter;
 @Setter
 public class Lecturer {
 
-
-
-
         @Id
         private String lec_id;
         private String lec_name;
         private String lec_email;
         private String lec_contact ;
-
-
 }
