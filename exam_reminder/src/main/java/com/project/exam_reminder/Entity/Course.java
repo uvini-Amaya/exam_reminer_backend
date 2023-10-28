@@ -1,5 +1,20 @@
 package com.project.exam_reminder.Entity;
 
-public class Course {
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@Table(name = "course_Table")
+public class Course {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "courseId")
+    private int courseId;
+    private String courseCode;
+    private String courseName;
 }

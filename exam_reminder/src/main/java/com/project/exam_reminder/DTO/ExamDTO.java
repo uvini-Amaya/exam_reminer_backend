@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ReminderDTO {
-    private int reminderId;
-    private int lecId;
+public class ExamDTO {
     private int examId;
+    private String time;
+    private String date;
+    private String coursecode;
 }

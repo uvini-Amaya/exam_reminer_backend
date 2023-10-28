@@ -16,5 +16,6 @@ public class ReminderService {
     private ModelMapper modelMapper;
     public static ReminderDTO addReminder(ReminderDTO reminderDTO) {
 
+        return reminderDTO;
     }
 }

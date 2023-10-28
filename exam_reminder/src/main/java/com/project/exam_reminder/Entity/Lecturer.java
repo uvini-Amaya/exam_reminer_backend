@@ -1,21 +1,22 @@
 package com.project.exam_reminder.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
 @AllArgsConstructor
 @Data
-@Table
 @Getter
 @Setter
+@Builder
+@Table(name = "Lecture_table")
+@NoArgsConstructor
 public class Lecturer {
 
         @Id
-        private String lec_id;
-        private String lec_name;
-        private String lec_email;
-        private String lec_contact ;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "lec_id")
+        private int lecid;
+        private String lecname;
+        private String lecemail;
+        private String leccontact;
 }
