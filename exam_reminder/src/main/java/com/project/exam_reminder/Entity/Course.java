@@ -9,7 +9,7 @@ import lombok.Data;
 
 public class Course {
     @Id
-    private String courseCode;
-    private String course_name;
+    private String courseId;
+    private String courseName;
 
 }

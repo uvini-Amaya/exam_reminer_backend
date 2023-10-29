@@ -1,30 +1,36 @@
 package com.project.exam_reminder.Entity;
 
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
+import jakarta.persistence.*;
+import lombok.*;
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@Table(name = "Exam_table")
 @Data
 
 public class Lecturer {
     
 
         @Id
-        private String lec_id;
-        private String lec_name;
-        private String lec_email;
-        private String lec_contact ;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "lecId")
+        private String lecId;
+        private String lecName;
+        private String lecEmail;
+        private String lecContact ;
+        private String lecPassword;
+
+        @ManyToOne
+        @JoinColumn(name = "courseId")
+        private String courseId;
 
 
-//        @Override
-//        public String toString() {
-//            return "Lecturer{" +
-//                    "Lecturer_id='" + lec_id + '\'' +
-//                    ", lecturer_name='" + lec_name + '\'' +
-//                    ", Lecturer_email='" + lec_email + '\'' +
-//                    ", Lecturer_contact='" + lec_contact + '\'' +
-//                    '}';
-//        }
 
 }
+
+
+
+
