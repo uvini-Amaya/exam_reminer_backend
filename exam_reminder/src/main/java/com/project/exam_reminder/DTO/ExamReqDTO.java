@@ -17,3 +17,4 @@ public class ExamReqDTO {
     private int courseId;
     private int lecId;
 }
+
