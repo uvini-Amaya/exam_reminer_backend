@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ExamDTO {
+public class ExamReqDTO {
     private int examId;
     private String time;
     private String date;
     private String venue;
-
+    private int courseId;
+    private int lecId;
 }

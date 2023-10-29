@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 @EnableJpaRepositories
-public interface LectureRepo extends JpaRepository<Lecturer, UUID> {
+public interface LectureRepo extends JpaRepository<Lecturer, Integer> {
 }

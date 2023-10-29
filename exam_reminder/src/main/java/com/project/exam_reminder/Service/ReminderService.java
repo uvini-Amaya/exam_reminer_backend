@@ -12,8 +12,8 @@ public class ReminderService {
     @Autowired
     private ReminderRepo reminderRepo;
 
-    @Autowired
-    private ModelMapper modelMapper;
+/*    @Autowired
+    private ModelMapper modelMapper;*/
     public static ReminderDTO addReminder(ReminderDTO reminderDTO) {
 
         return reminderDTO;

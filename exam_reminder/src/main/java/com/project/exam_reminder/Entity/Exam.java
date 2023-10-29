@@ -17,8 +17,15 @@ public class Exam {
     private int examId;
     private String time;
     private String date;
+    private String venue;
+
 
     @ManyToOne
     @JoinColumn(name = "courseId")
-    private Lecturer courseId;
+    private Course courseId;
+
+    @ManyToOne
+    @JoinColumn(name = "lecId")
+    private Lecturer lecId;
+
 }

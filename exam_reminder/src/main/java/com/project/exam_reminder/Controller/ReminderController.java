@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping({"api/examreminder"})
+@RequestMapping({"api/examreminder/reminder"})
 @CrossOrigin
 public class ReminderController {
     @Autowired

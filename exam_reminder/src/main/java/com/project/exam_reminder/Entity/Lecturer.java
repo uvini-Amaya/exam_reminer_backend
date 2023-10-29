@@ -2,9 +2,10 @@ package com.project.exam_reminder.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @AllArgsConstructor
-@Data
 @Getter
 @Setter
 @Builder
