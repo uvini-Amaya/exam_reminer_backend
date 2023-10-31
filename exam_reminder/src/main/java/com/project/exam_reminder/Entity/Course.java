@@ -1,15 +1,24 @@
 package com.project.exam_reminder.Entity;
 
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
+import jakarta.persistence.*;
+import lombok.*;
+@Entity
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@Table(name = "Course_table")
 @Data
 
 public class Course {
-    @Id
-    private String courseId;
-    private String courseName;
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "courseId")
+    private String courseId;
+    private String course;
+    private String acYear;
+    private String level;
 }

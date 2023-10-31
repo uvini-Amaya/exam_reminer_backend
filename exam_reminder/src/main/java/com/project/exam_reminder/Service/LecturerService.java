@@ -33,19 +33,19 @@ public class LecturerService {
 
     public Lecturer saveLecturerDetails(LecturerDTO lecturerDTO) {
         Lecturer lecturer = lecturerRepo.findById(LecturerDTO.getLecId())
-                .orElseThrow(()-> new EntityNotFoundException("Lecture not found"));
+                .orElseThrow(()-> new EntityNotFoundException("Lecturer not found"));
 
 
 
         Lecturer lect = new Lecturer();
-        lecturer.setLecId(lecturerDTO.getLecId());
-        lecturer.setLecName(lecturerDTO.getLecName());
-        lecturer.setLecContact(lecturerDTO.getLecContact());
-        lecturer.setLecEmail(lecturerDTO.getLecEmail());
-        lecturer.setLecPassword(lecturerDTO.getLecPassword());
+        lect.setLecId(lecturerDTO.getLecId());
+        lect.setLecName(lecturerDTO.getLecName());
+        lect.setLecContact(lecturerDTO.getLecContact());
+        lect.setLecEmail(lecturerDTO.getLecEmail());
+        lect.setLecPassword(lecturerDTO.getLecPassword());
 
 
-        return lecturerRepo.save(lecturer);
+        return lecturerRepo.save(lect);
     }
 
     public Lecturer updateLecturerDetails(LecturerDTO lecturer__dto) {
