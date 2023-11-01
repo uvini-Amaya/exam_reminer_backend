@@ -13,9 +13,6 @@ public class LecturerService {
     @Autowired
     private LecturerRepo lecturerRepo;
 
-//    @Autowired
-//    private CourseRepo courseRepo;
-
     @Autowired
     private ModelMapper modelMapper;
 
