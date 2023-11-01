@@ -2,8 +2,6 @@ package com.project.exam_reminder.Service;
 
 import com.project.exam_reminder.DTO.LecturerDTO;
 import com.project.exam_reminder.Entity.Lecturer;
-import com.project.exam_reminder.Repo.CourseRepo;
-import com.project.exam_reminder.Repo.ExamRepo;
 import com.project.exam_reminder.Repo.LecturerRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
