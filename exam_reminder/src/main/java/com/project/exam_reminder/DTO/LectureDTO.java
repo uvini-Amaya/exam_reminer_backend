@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LectureDTO {
-    private int lecid;
-    private String lecname;
-    private String lecemail;
-    private String leccontact;
+    private int lecId;
+    private String lecName;
+    private String lecEmail;
+    private String lecContact ;
+    private String lecPassword;
+
 }

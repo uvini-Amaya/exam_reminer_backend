@@ -20,7 +20,7 @@ public class Reminder {
     private int examId;*/
     @ManyToOne
     @JoinColumn(name = "lecId")
-    private Lecturer lecId;
+    private Lecture lecId;
 
     @ManyToOne
     @JoinColumn(name = "examId")

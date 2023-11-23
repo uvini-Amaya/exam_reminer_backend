@@ -18,15 +18,16 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "examId")
     private int examId;
-    private LocalTime time;
+    private LocalTime stime;
+    private LocalTime etime;
     private LocalDate date;
     private String venue;
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
     private Course courseId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lec_id")
-    private Lecturer lecId;
+    private Lecture lecId;
 
 }

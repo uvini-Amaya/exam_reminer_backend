@@ -2,12 +2,13 @@ package com.project.exam_reminder.Service;
 import com.project.exam_reminder.DTO.ExamReqDTO;
 import com.project.exam_reminder.Entity.Course;
 import com.project.exam_reminder.Entity.Exam;
-import com.project.exam_reminder.Entity.Lecturer;
+import com.project.exam_reminder.Entity.Lecture;
 import com.project.exam_reminder.Repo.CourseRepo;
 import com.project.exam_reminder.Repo.ExamRepo;
 import com.project.exam_reminder.Repo.LectureRepo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,28 +38,37 @@ public class ExamService {
 
     public Exam createExam(ExamReqDTO examReqDTO){
 
-        Course course = courseRepo.getReferenceById(examReqDTO.getCourseId());
-        Lecturer lecturer = lectureRepo.getReferenceById(examReqDTO.getLecId());
+        if (examReqDTO == null) {
 
-        LocalDate date = LocalDate.parse(examReqDTO.getDate());
-        LocalTime time = LocalTime.parse(examReqDTO.getTime());
+            return null;
+        }else {
+            Course course = courseRepo.getReferenceById(examReqDTO.getCourseId());
+            Lecture lecturer = lectureRepo.getReferenceById(examReqDTO.getLecId());
 
-        Exam exam = new Exam();
-        exam.setCourseId(course);
-        exam.setVenue(examReqDTO.getVenue());
-        exam.setDate(date);
-        exam.setTime(time);
-        exam.setLecId(lecturer);
+            LocalDate date = (examReqDTO.getDate() != null) ? LocalDate.parse(examReqDTO.getDate()) : null;
+            LocalTime stime = (examReqDTO.getStime() != null) ? LocalTime.parse(examReqDTO.getStime()) : null;
+            LocalTime etime = (examReqDTO.getEtime() != null) ? LocalTime.parse(examReqDTO.getEtime()) : null;
 
-        scheduleReminder(exam, examReqDTO);
+            Exam exam = new Exam();
+            exam.setCourseId(course);
+            exam.setVenue(examReqDTO.getVenue());
+            exam.setDate(date);
+            exam.setStime(stime);
+            exam.setEtime(etime);
+            exam.setLecId(lecturer);
 
-        examRepo.save(exam);
+            /*scheduleReminder(exam, examReqDTO);*/
 
-        return exam;
+            examRepo.save(exam);
+
+            return exam;
+        }
+
+
     }
 
-    private void scheduleReminder(Exam exam , ExamReqDTO examReqDTO){
-        LocalDateTime examDT = LocalDateTime.of(exam.getDate(), exam.getTime());
+    private void scheduleReminder(@NotNull Exam exam , ExamReqDTO examReqDTO){
+        LocalDateTime examDT = LocalDateTime.of(exam.getDate(), exam.getStime());
         LocalDateTime reminderDT = examDT.minusHours(24);
 
         Timer timer = new Timer();
@@ -71,19 +81,19 @@ public class ExamService {
         },Date.from(reminderDT.atZone(ZoneId.systemDefault()).toInstant()));
     }
 
-
     private void reminderMail(Exam exam, ExamReqDTO examReqDTO){
         Course courseData=courseRepo.getReferenceById(examReqDTO.getCourseId());
-        Lecturer lecturerData = lectureRepo.getReferenceById(examReqDTO.getLecId());
+        Lecture lecturerData = lectureRepo.getReferenceById(examReqDTO.getLecId());
 
-        String subject = "Reminder for Course: " + courseData.getCourseName();
+        String subject = "Reminder for Course: " + courseData.getCourse();
         String messege = "You have a Exam Schedule for tommorow. Details:\n" +
-                "Course:" + courseData.getCourseName() + "\n" +
+                "Course:" + courseData.getCourse() + "\n" +
                 "Date:" + examReqDTO.getDate() + "\n" +
-                "Time:" + examReqDTO.getTime() + "\n" +
+                "Time:" + examReqDTO.getStime() + "\n" +
                 "Venue:" + examReqDTO.getVenue();
 
-        emailService.sendEmail(lecturerData.getLecemail() , subject, messege );
+        /*emailService.sendSimpleEmail(lecturerData.getLecemail() , subject, messege );
+        System.out.println(messege);*/
 
 
     }

@@ -2,8 +2,6 @@ package com.project.exam_reminder.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
-
 @Entity
 @AllArgsConstructor
 @Getter
@@ -11,13 +9,19 @@ import java.util.UUID;
 @Builder
 @Table(name = "Lecture_table")
 @NoArgsConstructor
-public class Lecturer {
+public class Lecture {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "lec_id")
-        private int lecid;
-        private String lecname;
-        private String lecemail;
-        private String leccontact;
+        private int lecId;
+        private String lecName;
+        private String lecEmail;
+        private String lecContact ;
+        private String lecPassword;
+
+        @ManyToOne
+        @JoinColumn(name = "course_id")
+        private Course courseId;
+
 }

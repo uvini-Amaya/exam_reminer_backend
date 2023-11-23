@@ -18,6 +18,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "courseId")
     private int courseId;
-    private String courseCode;
-    private String courseName;
+    private String course;
+    private String acYear;
+    private String level;
 }

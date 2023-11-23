@@ -8,14 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping({"api/examreminder/exam"})
+@RequestMapping({"api/exam_reminder/exam"})
 @CrossOrigin
 public class ExamController {
     @Autowired
     private ExamService examService;
 
     @PostMapping("/createexam")
-    public ResponseEntity<Exam> createExam(@RequestBody ExamReqDTO examReqDTO){
+    public ResponseEntity<?> createExam(@RequestBody ExamReqDTO examReqDTO){
         Exam exam = examService.createExam(examReqDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(exam);
     }
