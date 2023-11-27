@@ -1,5 +1,5 @@
 package com.project.exam_reminder.Service;
-import com.project.exam_reminder.DTO.ExamReqDTO;
+import com.project.exam_reminder.DTO.*;
 import com.project.exam_reminder.Entity.Course;
 import com.project.exam_reminder.Entity.Exam;
 import com.project.exam_reminder.Entity.Lecture;
@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.Date;
@@ -17,8 +20,11 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.Collections;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,67 +42,93 @@ public class ExamService {
     private EmailService emailService;
 
 
-    public Exam createExam(ExamReqDTO examReqDTO){
+    public List<ExamReqDTO> getAllExam(){
 
-        if (examReqDTO == null) {
-
+        try {
+            List<Exam> exams = examRepo.findAll();
+            if (exams != null && !exams.isEmpty()){
+                return modelMapper.map(exams, new TypeToken<List<ExamDTO>>(){}.getType());
+            }
+            return Collections.emptyList();
+        }catch(Exception e){
+            System.out.println(e.toString());
             return null;
-        }else {
-            Course course = courseRepo.getReferenceById(examReqDTO.getCourseId());
-            Lecture lecturer = lectureRepo.getReferenceById(examReqDTO.getLecId());
+        }
+    }
 
-            LocalDate date = (examReqDTO.getDate() != null) ? LocalDate.parse(examReqDTO.getDate()) : null;
-            LocalTime stime = (examReqDTO.getStime() != null) ? LocalTime.parse(examReqDTO.getStime()) : null;
-            LocalTime etime = (examReqDTO.getEtime() != null) ? LocalTime.parse(examReqDTO.getEtime()) : null;
+    public List<ExamDTO> getExamByLecId(int lecId) {
+        try {
+            System.out.println("Provided lecturer ID: " + lecId);
 
-            Exam exam = new Exam();
-            exam.setCourseId(course);
-            exam.setVenue(examReqDTO.getVenue());
-            exam.setDate(date);
-            exam.setStime(stime);
-            exam.setEtime(etime);
-            exam.setLecId(lecturer);
+            List<Exam> exams = examRepo.findByLecture_LecId(lecId);
 
-            /*scheduleReminder(exam, examReqDTO);*/
+            if (exams != null) {
+                System.out.println("Number of exams found: " + exams.size());
 
-            examRepo.save(exam);
+                if (!exams.isEmpty()) {
+                    return modelMapper.map(exams, new TypeToken<List<ExamDTO>>() {}.getType());
+                } else {
+                    System.out.println("No exams found for the given lecturer ID.");
+                    return Collections.emptyList();
+                }
+            } else {
+                System.out.println("Exams list is null.");
+                return Collections.emptyList();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.toString());
+            return Collections.emptyList();
+        }
+    }
 
-            return exam;
+
+    public String deleteExam(int examId) {
+        try {
+            if (examRepo.existsById(examId)) {
+                examRepo.deleteById(examId);
+                return "Exam deleted successfully";
+            } else {
+                return "Exam not found";
+            }
+        }catch(Exception e){
+            return null;
         }
 
-
     }
+    public Exam createExam(ExamReqDTO examReqDTO){
+        try {
+            if (examReqDTO == null) {
 
-    private void scheduleReminder(@NotNull Exam exam , ExamReqDTO examReqDTO){
-        LocalDateTime examDT = LocalDateTime.of(exam.getDate(), exam.getStime());
-        LocalDateTime reminderDT = examDT.minusHours(24);
+                return null;
+            }else {
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+                LocalDate date = (examReqDTO.getDate() != null) ? LocalDate.parse(examReqDTO.getDate()) : null;
+                LocalTime stime = (examReqDTO.getStime() != null) ? LocalTime.parse(examReqDTO.getStime()) : null;
+                LocalTime etime = (examReqDTO.getEtime() != null) ? LocalTime.parse(examReqDTO.getEtime()) : null;
 
-            @Override
-            public void run() {
-                reminderMail(exam, examReqDTO);
+                Exam exam = new Exam();
+                exam.setVenue(examReqDTO.getVenue());
+                exam.setDate(date);
+                exam.setStime(stime);
+                exam.setEtime(etime);
+
+                Course course = courseRepo.findById(examReqDTO.getCourseId()).orElse(null);
+
+                Lecture lecturer = lectureRepo.findById(examReqDTO.getLectureId()).orElse(null);
+
+                exam.setCourse(course);
+                exam.setLecture(lecturer);
+
+                examRepo.save(exam);
+
+                return exam;
             }
-        },Date.from(reminderDT.atZone(ZoneId.systemDefault()).toInstant()));
+        }catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 
-    private void reminderMail(Exam exam, ExamReqDTO examReqDTO){
-        Course courseData=courseRepo.getReferenceById(examReqDTO.getCourseId());
-        Lecture lecturerData = lectureRepo.getReferenceById(examReqDTO.getLecId());
-
-        String subject = "Reminder for Course: " + courseData.getCourse();
-        String messege = "You have a Exam Schedule for tommorow. Details:\n" +
-                "Course:" + courseData.getCourse() + "\n" +
-                "Date:" + examReqDTO.getDate() + "\n" +
-                "Time:" + examReqDTO.getStime() + "\n" +
-                "Venue:" + examReqDTO.getVenue();
-
-        /*emailService.sendSimpleEmail(lecturerData.getLecemail() , subject, messege );
-        System.out.println(messege);*/
-
-
-    }
 
 
 }

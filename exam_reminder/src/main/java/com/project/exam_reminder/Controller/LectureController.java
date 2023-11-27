@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping({"api/exam_reminder/lecturer"})
 @CrossOrigin
@@ -19,6 +21,16 @@ public class LectureController {
     @GetMapping("/getLecturerDetails/{lecId}")
     public ResponseEntity<Lecture> getLecturerDetails(@PathVariable int lecId){
         Lecture lecturer = lecturerService.getLecturerDetails(lecId);
+        if (lecturer != null) {
+            return ResponseEntity.ok(lecturer);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/getAllLecturerDetails")
+    public ResponseEntity<List<LectureDTO>> getAllLecturerDetails(){
+        List<LectureDTO> lecturer = lecturerService.getAllLecturerDetails();
         if (lecturer != null) {
             return ResponseEntity.ok(lecturer);
         } else {

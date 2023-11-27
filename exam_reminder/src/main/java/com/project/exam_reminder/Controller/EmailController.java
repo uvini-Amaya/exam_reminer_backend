@@ -24,27 +24,27 @@ public class EmailController {
     @Autowired
     private LectureService lectureService;
 
-    @PostMapping("/sendmail/{lec_id}")
-    public ResponseEntity<?> sendMail(@PathVariable int lec_id){
-
-        /*Lecturer lec = lectureService.getLectureById(lec_id);*/
-
-            Map<String,Object> map = new LinkedHashMap<String,Object>();
-            boolean sent = emailService.sendSimpleEmail(lec_id, "Messege","course details");
-
-            if (sent){
-                map.put("status", 1);
-                map.put("data", sent);
-                return new ResponseEntity<>(map, HttpStatus.OK);
-
-            }else{
-                map.clear();
-                map.put("status", 0);
-                map.put("message", "Mail not send");
-                return new ResponseEntity<>(map, HttpStatus.OK);
-        }
-
-
-    }
+//    @PostMapping("/sendmail/{lec_id}")
+//    public ResponseEntity<?> sendMail(@PathVariable int lec_id){
+//
+//        /*Lecturer lec = lectureService.getLectureById(lec_id);*/
+//
+//            Map<String,Object> map = new LinkedHashMap<String,Object>();
+//            boolean sent = emailService.sendSimpleEmail(lec_id, "Messege","course details");
+//
+//            if (sent){
+//                map.put("status", 1);
+//                map.put("data", sent);
+//                return new ResponseEntity<>(map, HttpStatus.OK);
+//
+//            }else{
+//                map.clear();
+//                map.put("status", 0);
+//                map.put("message", "Mail not send");
+//                return new ResponseEntity<>(map, HttpStatus.OK);
+//        }
+//
+//
+//    }
 
 }

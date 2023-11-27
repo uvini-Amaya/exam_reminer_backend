@@ -1,12 +1,15 @@
 package com.project.exam_reminder.Service;
 
 
+import com.project.exam_reminder.DTO.ExamReqDTO;
 import com.project.exam_reminder.Repo.LectureRepo;
+import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -23,33 +26,39 @@ public class EmailService {
     private LectureService lectureService;
 
 
-    public boolean sendSimpleEmail(int lec_id,String subject, String body){
-        boolean send = false;
+    public void sendSimpleEmail(ExamReqDTO examReqDTO){
+        int lecId = examReqDTO.getLectureId();
+        String lecEmail = lectureRepo.getEmailByLecId(lecId);
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-            String email = lectureRepo.getEmailByLecId(lec_id);
-            if (email!=null){
-                SimpleMailMessage messege = new SimpleMailMessage();
 
-                messege.setFrom("s17061@sci.pdn.ac.lk");
-                messege.setTo(email);
-                messege.setText(body);
-                messege.setSubject(subject);
+            helper.setTo(lecEmail);
+            helper.setSubject("Exam Reminder");
+            helper.setText("Dear Sir/Madam,\n\n"
+                    + "This is a reminder for the upcoming exam:\n\n"
+                    + "Exam Details:\n"
+                    + "Start Time: " + examReqDTO.getStime() + "\n"
+                    + "End Time: " + examReqDTO.getEtime() + "\n"
+                    + "Date: " + examReqDTO.getDate() + "\n"
+                    + "Venue: " + examReqDTO.getVenue());
 
-                javaMailSender.send(messege);
-                System.out.println(body);
-                System.out.println(subject);
 
-                send = true;
-            }
-            return send;
+            javaMailSender.send(message);
+
+            System.out.println("Email sent successfully!");
 
         }catch (Exception e){
-            System.out.println(e.toString());
-            return send;
+            System.out.println("Error sending email: " + e.toString());
+
         }
 
 
 
+
     }
+
+
 }

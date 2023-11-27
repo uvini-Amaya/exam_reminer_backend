@@ -5,19 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
-public class ExamReqDTO {
+public class TaskDTO {
     private int examId;
-    private String stime;
-    private String etime;
-    private String date;
+    private LocalTime stime;
+    private LocalTime etime;
+    private LocalDate date;
     private String venue;
+    private String courseName;
     private int courseId;
     private int lectureId;
-
-
 }
-

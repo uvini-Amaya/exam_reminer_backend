@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 public interface LectureRepo extends JpaRepository<Lecture, Integer> {
 
+    Lecture findByLecName(String lecName);
     @Query(value = "SELECT lecemail FROM Lecture_table WHERE lec_id = ?1", nativeQuery = true)
     String getEmailByLecId(@Param(value = "lec_id") int lec_id);
 }

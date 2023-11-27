@@ -1,5 +1,6 @@
 package com.project.exam_reminder.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,12 +23,14 @@ public class Exam {
     private LocalTime etime;
     private LocalDate date;
     private String venue;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
-    private Course courseId;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "lec_id")
-    private Lecture lecId;
+    @JsonIgnore
+    private Lecture lecture;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    @JsonIgnore
+    private Course course;
 
 }

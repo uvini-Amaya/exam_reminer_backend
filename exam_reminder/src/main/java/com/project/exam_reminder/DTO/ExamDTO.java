@@ -14,8 +14,11 @@ import java.time.LocalTime;
 @Builder
 public class ExamDTO {
     private int examId;
-    private LocalTime time;
-    private LocalDate date;
+    private String stime;
+    private String etime;
+    private String date;
     private String venue;
+    private int courseId;
+    private int lectureId;
 
 }

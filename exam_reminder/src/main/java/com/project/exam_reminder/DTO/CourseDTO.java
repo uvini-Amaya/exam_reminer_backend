@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CourseDTO {
     private int courseId;
-    private String course;
+    private String courseName;
     private String acYear;
     private String level;
 }

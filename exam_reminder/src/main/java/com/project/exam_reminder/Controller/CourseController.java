@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping({"api/exam_reminder/course"})
 @CrossOrigin
@@ -21,6 +23,17 @@ public class CourseController {
     @GetMapping("/getCourseDetails/{courseId}")
     public ResponseEntity<Course> getCourseDetails(@PathVariable int courseId){
         Course course = courseService.getCourseDetails(courseId);
+        if (course != null) {
+            return ResponseEntity.ok(course);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @GetMapping("/getAllCourseDetails")
+    public ResponseEntity<List<CourseDTO>> getAllCourseDetails(){
+        List<CourseDTO> course = courseService.getAllCourseDetails();
         if (course != null) {
             return ResponseEntity.ok(course);
         } else {
